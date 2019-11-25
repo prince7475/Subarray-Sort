@@ -1,0 +1,136 @@
+Write a function that takes in an array of numbers and returns an array of the 
+starting and ending indices of the smallest subarray in the input array that 
+needs to be sorted in place in order for the entire input array to be sorted
+
+
+
+Time --> O(n)
+space -> O(n)
+Main(array)
+- Find all the numbers that are unsorted and push to an array
+- Find the max number, min number
+- (minNumber) Find the index of the first number that is greater then our min Number -> start at index of 0
+- (maxNumber) find the index of the first number that is less then our maxNumber --> start at array.length - 1
+return [minIdx, maxIdx]
+let unsortedNum = []
+-- Get all unsorted numbers
+loop through array
+  for(let i = 0; i < array.length - 1; i++){
+    let currNum = array[i]
+    if(currNum > array[i + 1]){
+      unsortedNum.push(currNum, array[i + 1])
+    }
+  }
+
+let maxNumber = Math.max(...unsortedNum)
+let minNumber = Math.min(...unsortedNum)
+
+let minIdx = 0
+let maxIdx = array.length - 1
+
+// Looking for minidx
+while(minIdx <= array.length){
+    if(array[minIdx] > minNumber) break;
+  minIdx++
+}
+
+
+// Looking for maxIdx
+while(maxIdx >= 0){
+if(array[maxIdx] < maxNumber) break
+maxIdx++
+}
+
+return [minIdx, maxIdx]
+
+
+
+function subarraySort(array){
+  let unsortedNumbers = []
+  for(let i = 0; i < array.length - 1; i++){
+    let currNum = array[i]
+    if(currNum > array[i + 1]){
+      unsortedNumbers.push(currNum, array[i + 1])
+    }
+  }
+  
+  let minNumber = Math.min(...unsortedNumbers)
+  let maxNumber = Math.max(...unsortedNumbers)
+  
+  let minIdx = 0
+  let maxIdx = array.length - 1
+  
+  // Look for minIdx
+  while(minIdx <= array.length - 1){
+    if(array[minIdx] > minNumber) break;
+    minIdx++
+  }
+  
+  while(maxIdx >= 0){
+    if(array[maxIdx] < minNumber) break
+    maxIdx--
+  }
+  
+  return [minIdx, maxIdx]
+}
+
+
+
+
+
+
+
+
+function subarraySort(array){
+  let minNumber = Infinity
+  let maxNumber = -Infinity
+  
+  for(let i = 0; i < array.length - 1; i++){
+    if(array[i] > array[i + 1]){
+      minNumber = Math.min(array[i],array[i + 1], minNumber)
+      maxNumber = Math.max(array[i], array[i + 1], maxNumber)
+    }
+  }
+  
+  if(minNumber === Infinity) return [-1,-1]
+  
+ let minIdx = 0
+ let maxIdx = array.length - 1
+ while(array[minIdx] <= minNumber){
+  minIdx++
+ }
+ 
+ while(array[maxIdx] >= maxNumber){
+  maxIdx--
+ }
+ return [minIdx, maxIdx]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
